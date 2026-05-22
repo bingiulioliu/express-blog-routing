@@ -13,7 +13,7 @@ router.get('/:id', show);
 router.post('/', create)
 
 // DELETE
-router.post('/', destroy)
+router.delete('/:id', destroy)
 
 
 export default router

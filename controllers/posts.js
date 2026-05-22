@@ -63,5 +63,5 @@ function destroy (request, response) {
 
 
 export {
-    index, show, create, delete
+    index, show, create, destroy
 }
