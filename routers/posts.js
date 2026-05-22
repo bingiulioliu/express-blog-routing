@@ -1,5 +1,5 @@
 import express from 'express';
-import {index, show, create} from '../controllers/posts.js'
+import {index, show, create, destroy} from '../controllers/posts.js'
 
 const router = express.Router();
 
@@ -11,5 +11,9 @@ router.get('/:id', show);
 
 // CREATE
 router.post('/', create)
+
+// DELETE
+router.post('/', destroy)
+
 
 export default router

@@ -49,9 +49,19 @@ function show (request, response) {
 }
 
 function create (request, response) {
-    response.json(posts)
+    response.json({
+        messaggio: 'Richiesta di creazione'
+    })
 }
 
+function destroy (request, response) {
+    const {id} = request.params;
+    response.json({
+        messaggio: `Richiesta di eliminazione per post con ID ${id}`
+    })
+}
+
+
 export {
-    index, show, create
+    index, show, create, delete
 }
