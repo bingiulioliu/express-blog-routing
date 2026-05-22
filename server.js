@@ -1,11 +1,12 @@
 import express from 'express';
+import postRouter from './routers/posts.js'
 
 const app=express();
 
 const PORT= process.env.PORT;
 const URL= process.env.URL;
 
-
+app.use('/posts', postsRouter);
 
 
 app.listen(PORT, (error) => {
