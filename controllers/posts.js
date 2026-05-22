@@ -1,63 +1,53 @@
 import posts from "../data/posts.js";
+import { findPost } from "../utils/findPost.js";
 
-function index (request, response) {
+function index(request, response) {
     response.json(posts)
 }
 
-function show (request, response) {
+function show(request, response) {
     // Recuper l'ID dai params
-    const {id} = request.params;
+    const { id } = request.params;
 
-    const realId = Number(id.trim())
+    const result = findPost(posts, id)
 
-    if (isNaN(realId)) {
-        response.status(404)
-        .json({
-            error: 'ID non corretto',
-            result: null
+    if (result.error) {
+        return response.status(404).json({
+            error: result.error,
+            results: null
         });
-        return;
-    }
-
-    if (realId<=0 || realId > 5){
-        response.status(404)
-        .json({
-            error: 'ID minore di zero o maggiore di 5',
-            result: null
-        });
-        return;
-    }
-
-    const postFound = posts.find(post => {
-        return post.id === realId
-    });
-
-    if (postFound === undefined) {
-        response.status(404)
-        .json({
-            error: 'Post non trovato',
-            result: null
-        });
-        return;
     }
 
     response.json({
         error: null,
-        results: postFound
+        messaggio: `Stai visualizzando il post con ID ${id}`,
+        results: result.data,
     });
 
 }
 
-function create (request, response) {
+function create(request, response) {
     response.json({
         messaggio: 'Richiesta di creazione'
     })
 }
 
-function destroy (request, response) {
-    const {id} = request.params;
+function destroy(request, response) {
+    const { id } = request.params;
+
+    const result = findPost(posts, id)
+
+    if (result.error) {
+        return response.status(404).json({
+            error: result.error,
+            results: null
+        });
+    }
+
     response.json({
-        messaggio: `Richiesta di eliminazione per post con ID ${id}`
+        error: null,
+        messaggio: `Richiesta di eliminazione per post con ID ${id}`,
+        results: result.data
     })
 }
 
